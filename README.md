@@ -1,120 +1,157 @@
-# 🎓 College Project — Spring Boot REST API
+# 🎓 Digital Learner Management Portal
 
-A **Spring Boot** REST API for managing college records, built as part of the Advanced Java course by Akash Bhaiya. The application exposes CRUD endpoints to add and query colleges stored in a **MySQL** database.
+A **Spring Boot REST API** designed to manage college and learner-related records through a structured backend application. The project provides REST endpoints for creating, retrieving, and searching college information, with **MySQL** used for persistent data storage.
 
----
+## ✨ Key Features
 
-## 🛠️ Tech Stack
+* Create and store college records
+* Retrieve all available college records
+* Search colleges using code, name, email, phone number, or address
+* Perform CRUD-based data operations
+* Validate incoming request data
+* Persist application data using Spring Data JPA
+* Follow a layered backend architecture
+* Use RESTful APIs for application communication
 
-| Layer | Technology |
-|---|---|
-| Language | Java 17 |
-| Framework | Spring Boot 4.1.0 |
-| Web | Spring MVC (spring-boot-starter-webmvc) |
-| Persistence | Spring Data JPA + Hibernate |
-| Database | MySQL 8+ |
-| Utilities | Apache Commons Lang3 3.20.0 |
-| Boilerplate reduction | Lombok 1.18.46 |
-| Build tool | Maven (Maven Wrapper included) |
+## 🔧 Technologies Used
 
----
+| Category             | Technology           |
+| -------------------- | -------------------- |
+| Programming Language | Java 17              |
+| Backend Framework    | Spring Boot          |
+| Web Layer            | Spring MVC           |
+| Data Access          | Spring Data JPA      |
+| ORM                  | Hibernate            |
+| Database             | MySQL 8+             |
+| Build Tool           | Maven                |
+| Utility Library      | Apache Commons Lang3 |
+| Code Simplification  | Lombok               |
 
-## 📂 Project Structure
+## 📁 Application Structure
 
+```text
+src/
+├── main/
+│   ├── java/com/project/
+│   │   ├── CollegeprojectApplication.java
+│   │   └── collegeproject/
+│   │       ├── controller/
+│   │       │   └── CollegeController.java
+│   │       ├── service/
+│   │       │   └── CollegeService.java
+│   │       ├── repository/
+│   │       │   └── CollegeRepository.java
+│   │       ├── model/
+│   │       │   └── CollegeEntity.java
+│   │       ├── dto/
+│   │       │   └── AddCollegeRequestDTO.java
+│   │       └── enums/
+│   │           ├── Status.java
+│   │           └── Type.java
+│   └── resources/
+│       └── application.properties
+│
+└── test/
+    └── java/
+
+pom.xml
+mvnw
+mvnw.cmd
+README.md
 ```
-MySecondProject/
-├── src/
-│   ├── main/
-│   │   ├── java/com/project/
-│   │   │   ├── CollegeprojectApplication.java        # Spring Boot entry point
-│   │   │   └── collegeproject/
-│   │   │       ├── controller/
-│   │   │       │   └── CollegeController.java        # REST endpoints
-│   │   │       ├── service/
-│   │   │       │   └── CollegeService.java           # Business logic & validation
-│   │   │       ├── repository/
-│   │   │       │   └── CollegeRepository.java        # JPA repository
-│   │   │       ├── model/
-│   │   │       │   └── CollegeEntity.java            # JPA entity (college_table)
-│   │   │       ├── dto/
-│   │   │       │   └── AddCollegeRequestDTO.java     # Request DTO
-│   │   │       └── enums/
-│   │   │           ├── Status.java                   # ACITVE | CLOSED | INACTIVE | SUSPENDED
-│   │   │           └── Type.java                     # PRIVATE | GOVERNMENT | SEMI_GOVERNMENT
-│   │   └── resources/
-│   │       └── application.properties                # App configuration
-│   └── test/
-│       └── java/                                     # Unit & integration tests
-├── pom.xml
-├── mvnw / mvnw.cmd                                   # Maven wrapper scripts
-└── README.md
-```
 
----
+### Layer Responsibilities
 
-## ⚙️ Prerequisites
+**Controller**
+Handles HTTP requests and exposes the REST API endpoints.
 
-- **Java 17** or higher installed and `JAVA_HOME` configured
-- **MySQL 8+** running locally
-- A MySQL database named `college_db` already created
+**Service**
+Contains application logic and performs input validation.
+
+**Repository**
+Uses Spring Data JPA to communicate with the database.
+
+**Model**
+Defines the college entity mapped to the MySQL table.
+
+**DTO**
+Represents the data received when adding a college.
+
+**Enums**
+Defines supported college types and status values.
+
+## 🗄️ Database Setup
+
+This project uses **MySQL** for storing college information.
+
+Create the database before starting the application:
 
 ```sql
 CREATE DATABASE college_db;
 ```
 
----
+Update your local MySQL credentials in:
 
-## 🚀 Getting Started
-
-### 1. Clone the repository
-
-```bash
-git clone https://github.com/Shivansh1146/MySecondProject.git
-cd MySecondProject
+```text
+src/main/resources/application.properties
 ```
 
-### 2. Configure the database
-
-Open `src/main/resources/application.properties` and update with your MySQL credentials:
+Example:
 
 ```properties
 spring.datasource.url=jdbc:mysql://localhost:3306/college_db
 spring.datasource.username=root
-spring.datasource.password=root
+spring.datasource.password=YOUR_PASSWORD
 spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
 ```
 
-> The schema is auto-created/updated via `spring.jpa.hibernate.ddl-auto=update`.  
-> No manual SQL migration is required.
+The application uses Hibernate's schema update configuration, so the required table structure can be created or updated automatically.
 
-### 3. Run the application
+## ▶️ Running the Application
 
-**Using Maven Wrapper (recommended):**
+### Requirements
+
+Make sure the following are installed:
+
+* Java 17 or later
+* MySQL 8+
+* Maven (optional because the project includes Maven Wrapper)
+
+### Start with Maven Wrapper
+
+**Windows:**
+
 ```bash
-./mvnw spring-boot:run        # Linux / macOS
-mvnw.cmd spring-boot:run      # Windows
+mvnw.cmd spring-boot:run
 ```
 
-**Or with Maven directly:**
+**Linux/macOS:**
+
+```bash
+./mvnw spring-boot:run
+```
+
+You can also run:
+
 ```bash
 mvn spring-boot:run
 ```
 
-The server starts on **port `8082`** by default.
+The application runs on:
 
----
+```text
+http://localhost:8082
+```
 
-## 📡 API Reference
+## 🌐 REST API Endpoints
 
-Base URL: `http://localhost:8082`
+### Create College
 
-### ➕ Add a College
+```text
+POST /addCollege
+```
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `POST` | `/addCollege` | Add a new college record |
-
-**Request Body (JSON):**
+Example request:
 
 ```json
 {
@@ -128,108 +165,125 @@ Base URL: `http://localhost:8082`
 }
 ```
 
-**Validation Rules:**
-- `collegeCode` — alphanumeric only (`^[a-zA-Z0-9]+$`)
-- `collegeName` — letters and spaces only (`^[a-zA-Z ]+$`)
-- `collegeEmail` — basic email format (`username@domain.tld`)
-- `collegePhoneNumber` — 10-digit Indian mobile number starting with 6–9
-- `collegeAddress` — alphanumeric and spaces only
+The API validates important fields such as the college code, name, email, phone number, and address before processing the request.
 
-**Response:**
-- `201 Created` → `"Congrats !! Your College is saved"`
-- `201` with validation error message if any field is invalid
+### Retrieve Colleges
 
----
-
-### 📋 Get All Colleges
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `GET` | `/getAllColleges` | Returns a list of all college records |
-
-**Response:** `200 OK` with a JSON array of college objects.
-
----
-
-### 🔍 Query Colleges
-
-| Method | Endpoint | Param Type | Description |
-|--------|----------|-----------|-------------|
-| `GET` | `/getCollegeByCode/{collegeCode}` | Path Variable | Find college by its code |
-| `GET` | `/getCollegeByName?collegeName=` | Query Param | Find college by name |
-| `GET` | `/getCollegeByEmail/{collegeEmail}` | Path Variable | Find college by email |
-| `GET` | `/getCollegeByPhoneNumber?collegePhoneNumber=` | Query Param | Find college by phone |
-| `GET` | `/getCollegeByAddress/{collegeAddress}` | Path Variable | Find college by address |
-
-**Response:** `200 OK` with a single college JSON object, or `null` if not found / blank input.
-
----
-
-## 🗃️ Data Model
-
-### `CollegeEntity` (maps to `college_table`)
-
-| Field | Type | Description |
-|---|---|---|
-| `id` | `String` (UUID) | Auto-generated primary key |
-| `collegeCode` | `String` | Unique short code for the college |
-| `collegeName` | `String` | Full name of the college |
-| `collegeEmail` | `String` | Official email address |
-| `collegePhoneNumber` | `String` | Contact phone number |
-| `collegeAddress` | `String` | Physical address |
-| `collegeType` | `Type` (enum) | `PRIVATE` / `GOVERNMENT` / `SEMI_GOVERNMENT` |
-| `collegeStatus` | `Status` (enum) | `ACITVE` / `CLOSED` / `INACTIVE` / `SUSPENDED` |
-| `startDate` | `Date` | Auto-set to current date on creation |
-
----
-
-## 🧪 Running Tests
-
-```bash
-./mvnw test        # Linux / macOS
-mvnw.cmd test      # Windows
+```text
+GET /getAllColleges
 ```
 
----
+Returns the college records available in the database.
 
-## 🏗️ Building for Production
+### Search by College Code
+
+```text
+GET /getCollegeByCode/{collegeCode}
+```
+
+### Search by College Name
+
+```text
+GET /getCollegeByName?collegeName=
+```
+
+### Search by Email
+
+```text
+GET /getCollegeByEmail/{collegeEmail}
+```
+
+### Search by Phone Number
+
+```text
+GET /getCollegeByPhoneNumber?collegePhoneNumber=
+```
+
+### Search by Address
+
+```text
+GET /getCollegeByAddress/{collegeAddress}
+```
+
+## 📊 College Data Fields
+
+The college entity contains the following information:
+
+| Field                | Data Type     | Purpose                     |
+| -------------------- | ------------- | --------------------------- |
+| `id`                 | String / UUID | Unique identifier           |
+| `collegeCode`        | String        | College identification code |
+| `collegeName`        | String        | Name of the college         |
+| `collegeEmail`       | String        | College email address       |
+| `collegePhoneNumber` | String        | Contact number              |
+| `collegeAddress`     | String        | College location/address    |
+| `collegeType`        | Enum          | College category            |
+| `collegeStatus`      | Enum          | Current college status      |
+| `startDate`          | Date          | Record creation date        |
+
+### College Type
+
+```text
+PRIVATE
+GOVERNMENT
+SEMI_GOVERNMENT
+```
+
+### College Status
+
+```text
+ACITVE
+CLOSED
+INACTIVE
+SUSPENDED
+```
+
+## 🧪 Testing
+
+Run the available tests with:
+
+```bash
+mvnw.cmd test
+```
+
+or:
+
+```bash
+./mvnw test
+```
+
+## 📦 Create the Application JAR
+
+To build the project:
 
 ```bash
 ./mvnw clean package -DskipTests
 ```
 
-The JAR will be generated at:
+The generated JAR will be available inside:
 
-```
-target/collegeproject-0.0.1-SNAPSHOT.jar
+```text
+target/
 ```
 
-Run it with:
+It can then be started using:
 
 ```bash
 java -jar target/collegeproject-0.0.1-SNAPSHOT.jar
 ```
 
----
+## ⚙️ Application Configuration
 
-## 📝 Configuration Reference
+The main application settings include:
 
-| Property | Default | Description |
-|---|---|---|
-| `server.port` | `8082` | HTTP port the server listens on |
-| `spring.jpa.hibernate.ddl-auto` | `update` | Schema auto-management strategy |
-| `spring.jpa.show-sql` | `true` | Prints SQL queries to console |
-| `spring.jpa.properties.hibernate.format_sql` | `true` | Pretty-prints SQL output |
-| `spring.jpa.database-platform` | `MySQLDialect` | Hibernate dialect for MySQL |
+| Configuration      | Value    |
+| ------------------ | -------- |
+| Server Port        | `8082`   |
+| Hibernate DDL Mode | `update` |
+| SQL Logging        | Enabled  |
+| Formatted SQL      | Enabled  |
+| Database           | MySQL    |
 
----
+## 🎯 Project Purpose
 
-## 👨‍💻 Author
-
-**Shivansh** — Advanced Java project developed under the guidance of **Akash Bhaiya**.
-
----
-
-## 📄 License
-
-This project is for **educational purposes** only.
+The project was developed to practice building a backend application using **Java and Spring Boot**, including REST API development, database connectivity, JPA-based persistence, request validation, and separation of responsibilities through a layered architecture.
